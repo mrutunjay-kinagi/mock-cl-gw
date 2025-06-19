@@ -1,0 +1,20 @@
+{
+  "claim_1": {
+    "claim_id": "claim_1",
+    "claim_number": "AUTO-2024-001",
+    "description": "Rear-end collision with injury",
+    "loss_date": "2025-04-01",
+    "status": "Open",
+    "send_to_claim_lens": true,
+    "policy_id": "policy_auto_1"
+  },
+  "claim_2": {
+    "claim_id": "claim_2",
+    "claim_number": "GL-2024-002",
+    "description": "Slip and fall at retail store",
+    "loss_date": "2025-04-15",
+    "status": "Open",
+    "send_to_claim_lens": true,
+    "policy_id": "policy_gl_1"
+  }
+}

@@ -1,0 +1,25 @@
+services:
+  claimcenter-api:
+    build: ./claimcenter_api
+    ports:
+      - "5000:5000"
+
+  claimlens-api:
+    build: ./claimlens_api
+    ports:
+      - "5001:5001"
+
+  mcp:
+    build: ./mcp
+    ports:
+      - "8002:8002"
+    depends_on:
+      - claimcenter-api
+      - claimlens-api
+      
+  chat-ui:
+    build: ./agentic_chat_ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mcp

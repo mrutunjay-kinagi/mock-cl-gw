@@ -1,0 +1,26 @@
+{
+  "claim_1": [
+    {
+      "document_id": "doc_auto_1",
+      "filename": "police_report.pdf",
+      "content_type": "application/pdf"
+    },
+    {
+      "document_id": "doc_auto_2",
+      "filename": "medical_summary.pdf",
+      "content_type": "application/pdf"
+    }
+  ],
+  "claim_2": [
+    {
+      "document_id": "doc_gl_1",
+      "filename": "incident_report.pdf",
+      "content_type": "application/pdf"
+    },
+    {
+      "document_id": "doc_gl_2",
+      "filename": "liability_notice.pdf",
+      "content_type": "application/pdf"
+    }
+  ]
+}

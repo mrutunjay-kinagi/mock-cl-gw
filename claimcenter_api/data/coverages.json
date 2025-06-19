@@ -1,0 +1,4 @@
+{
+  "policy_auto_1": ["Bodily Injury", "Property Damage", "Collision"],
+  "policy_gl_1": ["General Liability", "Premises Liability"]
+}

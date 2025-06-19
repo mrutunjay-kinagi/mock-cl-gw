@@ -1,0 +1,18 @@
+{
+  "claim_1": [
+    {
+      "incident_id": "incident_1",
+      "description": "Neck strain from car accident",
+      "body_parts": ["Neck"],
+      "severity": "Moderate"
+    }
+  ],
+  "claim_2": [
+    {
+      "incident_id": "incident_2",
+      "description": "Hip fracture from store fall",
+      "body_parts": ["Hip"],
+      "severity": "Severe"
+    }
+  ]
+}

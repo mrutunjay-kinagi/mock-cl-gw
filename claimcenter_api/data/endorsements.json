@@ -1,0 +1,10 @@
+{
+  "policy_auto_1": [
+    {"code": "CA0001", "title": "Named Driver Exclusion"},
+    {"code": "CA1234", "title": "Rental Reimbursement"}
+  ],
+  "policy_gl_1": [
+    {"code": "GL1234", "title": "Additional Insured – Vendors"},
+    {"code": "GL9999", "title": "Slip and Fall Exclusion"}
+  ]
+}

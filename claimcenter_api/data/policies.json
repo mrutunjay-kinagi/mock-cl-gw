@@ -1,0 +1,14 @@
+{
+  "policy_auto_1": {
+    "policy_id": "policy_auto_1",
+    "policy_number": "AUTO-2024-POL001",
+    "lob": "Auto",
+    "policyholder_name": "John Smith"
+  },
+  "policy_gl_1": {
+    "policy_id": "policy_gl_1",
+    "policy_number": "GL-2024-POL002",
+    "lob": "General Liability",
+    "policyholder_name": "ABC Retail Inc."
+  }
+}

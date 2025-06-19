@@ -1,286 +1,103 @@
-# ClaimCenter & ClaimLens Mock APIs
+# 🧠 ClaimLens + Guidewire ClaimCenter (Art of the Possible Demo using MCP)
 
-A comprehensive mock implementation of Guidewire ClaimCenter and Doclens.ai ClaimLens APIs for integration testing and development. This project simulates the complete bidirectional data flow between ClaimCenter and ClaimLens, including event-driven claim processing, AI analysis, and data synchronization.
+This mock project demonstrates a conceptual "Art of the Possible" integration between **Doclens.ai's ClaimLens** and **Guidewire ClaimCenter** using:
 
-## 🎯 Overview
+* 🧠 Agentic AI Chat Interface (Streamlit)
+* 🔗 Model context orchestration layer (MCP)
+* 📡 Simulated ClaimCenter and ClaimLens REST APIs
+* 🐳 Fully Dockerized setup for easy local or cloud demo
 
-This mock system replicates the integration described in the ClaimLens documentation:
+---
 
-- **ClaimCenter APIs** - Mock Guidewire ClaimCenter endpoints for claims, policies, documents, notes, and activities
-- **ClaimLens APIs** - Mock ClaimLens AI analysis service and webhook endpoints
-- **Event System** - Simulated `Claim:Create` and `Claim:Update` event handling
-- **Bidirectional Data Flow** - Complete integration between both systems
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.8 or higher
-- pip (Python package manager)
-
-### Installation
-
-1. **Clone or download the project files**
-2. **Create a virtual environment:**
-   ```bash
-   python -m venv venv
-   
-   # Activate virtual environment
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run the mock server:**
-   ```bash
-   python app.py
-   ```
-
-5. **Access the APIs:**
-   - Base URL: `http://localhost:5000`
-   - Health check: `http://localhost:5000/health`
-   - API overview: `http://localhost:5000/`
-
-## 📁 Project Structure
+## 🔧 Project Modules
 
 ```
-claimcenter_mock/
-├── app.py                    # Main Flask application
-├── requirements.txt          # Python dependencies
-├── README.md                # This file
-├── models/                  # Data models
-│   ├── __init__.py
-│   ├── claim_models.py      # Claim, Activity, Note, Document models
-│   └── policy_models.py     # Policy, Coverage, Endorsement models
-├── routes/                  # API route handlers
-│   ├── __init__.py
-│   ├── claimcenter_routes.py # ClaimCenter API endpoints
-│   └── claimlens_routes.py   # ClaimLens API endpoints
-├── events/                  # Event handling
-│   ├── __init__.py
-│   └── event_handler.py     # Event creation and processing
-└── utils/                   # Utilities
-    ├── __init__.py
-    └── sample_data.py       # Sample data generation
+mock-cl-gw/
+├── claimcenter_api/         # Mock Guidewire ClaimCenter API
+├── claimlens_api/           # Mock AI analysis engine
+├── mcp/                     # MCP logic layer for orchestration
+├── agentic_chat_ui/         # Streamlit app for interactive agentic chat
+├── docker-compose.yml       # Combined service launcher
+└── README.md
 ```
 
-## 🔧 API Endpoints
+---
 
-### ClaimCenter APIs (Data Retrieval)
+## 🧠 Agentic Chat Flow
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/claimcenter/claim/v1/claims/{claimId}` | Get claim details |
-| GET | `/claimcenter/claim/{claimId}/policy` | Get policy information |
-| GET | `/claimcenter/claims/{claimId}/policy/coverages` | Get policy coverages |
-| GET | `/claimcenter/claims/{claimId}/policy/endorsements` | Get policy endorsements |
-| GET | `/claimcenter/claim/{claimId}/injury-incidents` | Get injury incidents |
-| GET | `/claimcenter/claim/v1/claims/{claimId}/documents` | Get claim documents |
-| GET | `/claimcenter/claim/v1/claims/{claimId}/documents/{docId}/content` | Get document content |
-| GET | `/claimcenter/claim/v1/claims/{claimId}/notes` | Get claim notes |
-| GET | `/claimcenter/claim/v1/claims/{claimId}/activities` | Get claim activities |
-| POST | `/claimcenter/claim/v1/claims/{claimId}/trigger-event` | Trigger claim events |
+1. User enters a goal into the chat UI (e.g., “Analyze claim C12345 and summarize documents”)
+2. MCP interprets the prompt and orchestrates:
 
-### ClaimLens APIs (AI Analysis & Data Writing)
+   * ClaimCenter API calls: fetch documents, injuries, policy
+   * ClaimLens: analyze claim content
+3. Chat UI displays structured summary with key findings
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/claimlens/webhook/claim-event` | Receive claim events |
-| POST | `/api/claim/v1/claims/{claimId}/activities` | Create activities |
-| POST | `/api/claim/v1/claims/{claimId}/notes` | Create notes |
-| POST | `/api/claim/v1/claims/{claimId}/documents` | Upload documents |
-| POST | `/api/claim/v1/claims/{claimId}/injury-incidents/{incidentId}/medical-diagnoses` | Create medical diagnoses |
-| PATCH | `/api/claim/v1/claims/{claimId}/injury-incidents/{incidentId}/medical-diagnoses/{diagnosisId}` | Update medical diagnoses |
-| GET | `/api/claimlens/chat/session` | Get chat session |
-| POST | `/api/claimlens/chat/message` | Send chat message |
+---
 
-## 📊 Sample Data
+## 🚀 Running the Full Demo (Docker)
 
-The mock comes with pre-populated sample data:
+### 🔁 1. Build All Services
 
-### Claims
-- **claim_1**: Auto accident with injuries (`sendToClaimLens: true`)
-- **claim_2**: Property damage claim (`sendToClaimLens: false`)
-
-### Policies
-- **policy_1**: Auto insurance policy
-- **policy_2**: Homeowners insurance policy
-
-## 🧪 Testing Examples
-
-### 1. Get Claim Information
 ```bash
-curl http://localhost:5000/claimcenter/claim/v1/claims/claim_1
+docker-compose build
 ```
 
-### 2. Trigger a Claim Event
+### ▶️ 2. Launch All Services
+
 ```bash
-curl -X POST http://localhost:5000/claimcenter/claim/v1/claims/claim_1/trigger-event \
-  -H "Content-Type: application/json" \
-  -d '{"event_type": "Claim:Update"}'
+docker-compose up
 ```
 
-### 3. Simulate ClaimLens Processing Event
-```bash
-curl -X POST http://localhost:5000/api/claimlens/webhook/claim-event \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event_type": "Claim:Create",
-    "claim_id": "claim_1",
-    "event_id": "evt_123"
-  }'
-```
+### 🌐 3. Open Agentic Chat UI
 
-### 4. Create Activity (ClaimLens → ClaimCenter)
-```bash
-curl -X POST http://localhost:5000/api/claim/v1/claims/claim_1/activities \
-  -H "Content-Type: application/json" \
-  -d '{
-    "activity_type": "AI_Review",
-    "description": "High-risk characteristics identified by AI analysis",
-    "assigned_user": "adjuster@insurance.com"
-  }'
-```
+Visit: [http://localhost:8501](http://localhost:8501)
+Use: `claim_id = claim_1` or `claim_2`
 
-### 5. Create AI-Generated Note
-```bash
-curl -X POST http://localhost:5000/api/claim/v1/claims/claim_1/notes \
-  -H "Content-Type: application/json" \
-  -d '{
-    "content": "AI Analysis: Coverage mismatch detected. Recommend immediate review.",
-    "note_type": "AI_Analysis",
-    "created_by": "ClaimLens_AI"
-  }'
-```
+---
 
-### 6. Get Document Content (Base64 encoded)
-```bash
-curl http://localhost:5000/claimcenter/claim/v1/claims/claim_1/documents/doc_1/content
-```
+## 🧪 Sample Questions to Try
 
-## 🔄 Integration Flow Simulation
+* “Fetch policy details related to this claim”
+* “What are the coverages on this policy?”
+* “What endorsements apply here?”
+* “What are the reported injuries?”
+* “Analyze all documents on this claim”
 
-### Complete Flow Example:
+Each prompt is routed by MCP to the appropriate mock services and composed back into a response.
 
-1. **Flag a Claim for AI Analysis:**
-   - Claim has `sendToClaimLens: true`
+---
 
-2. **Trigger Event:**
-   ```bash
-   curl -X POST http://localhost:5000/claimcenter/claim/v1/claims/claim_1/trigger-event \
-     -H "Content-Type: application/json" \
-     -d '{"event_type": "Claim:Update"}'
-   ```
+## 📦 Service Overview
 
-3. **ClaimLens Receives Event:**
-   - Event is automatically "sent" to ClaimLens webhook
-   - AI processing simulation occurs
+| Service           | Description                            | Port |
+| ----------------- | -------------------------------------- | ---- |
+| `claimcenter-api` | Simulated Guidewire ClaimCenter APIs   | 5000 |
+| `claimlens-api`   | Simulated AI engine for claim analysis | 5001 |
+| `mcp`             | Orchestration layer (MCP logic)        | 8002 |
+| `chat-ui`         | Streamlit frontend for agentic prompt  | 8501 |
 
-4. **ClaimLens Writes Back Results:**
-   - Creates activities with risk analysis
-   - Adds AI-generated notes
-   - Updates medical diagnoses with ICD-10 codes
+---
 
-5. **Verify Results:**
-   ```bash
-   # Check created activities
-   curl http://localhost:5000/claimcenter/claim/v1/claims/claim_1/activities
-   
-   # Check AI notes
-   curl http://localhost:5000/claimcenter/claim/v1/claims/claim_1/notes
-   ```
+## 🛠️ ClaimCenter Mock Data
 
-## 🎨 Key Features
+The `claimcenter_api/data/` folder includes:
 
-### Event-Driven Architecture
-- ✅ Simulates Guidewire Messaging (On-Prem)
-- ✅ Simulates AWS EventBridge (Cloud)
-- ✅ Configurable event triggering with `sendToClaimLens` flag
+* `claims.json`: claim\_1 (Auto), claim\_2 (GL)
+* `policies.json`: with policyholder & LOB
+* `documents.json`: medical, police, incident reports
+* `injuries.json`: body parts + severity
+* `coverages.json`: by policy
+* `endorsements.json`: by policy
 
-### Comprehensive Data Models
-- ✅ Claims, Policies, Coverages, Endorsements
-- ✅ Injury Incidents, Medical Diagnoses, Bodily Injury Points
-- ✅ Documents, Notes, Activities
-- ✅ No Pydantic dependency - uses Python dataclasses
+---
 
-### AI Analysis Simulation
-- ✅ Risk scoring and complexity assessment
-- ✅ Recommended actions generation
-- ✅ Conversational chat interface
-- ✅ Source citation tracking
+## 🛡️ Disclaimer
 
-### Bidirectional Integration
-- ✅ ClaimCenter → ClaimLens data flow
-- ✅ ClaimLens → ClaimCenter result writing
-- ✅ Real-time event processing simulation
+This is a **proof-of-concept** project. It simulates how ClaimLens could interact with Guidewire ClaimCenter using MCP and agentic AI. This is **not production-ready** and is intended solely to demonstrate the art of the possible.
 
-## 🔍 Monitoring & Debugging
+---
 
-### Console Output
-The mock server provides detailed console output showing:
-- Event triggering and routing
-- API calls and responses
-- AI processing simulation
+## 🧩 Credits
 
-### Health Check
-```bash
-curl http://localhost:5000/health
-```
-
-### API Discovery
-```bash
-curl http://localhost:5000/
-```
-
-## 🛠️ Customization
-
-### Adding New Sample Data
-Edit `utils/sample_data.py` to add more claims, policies, or documents.
-
-### Modifying AI Responses
-Update the AI analysis logic in `routes/claimlens_routes.py` in the `receive_claim_event` function.
-
-### Adding New Endpoints
-Add new routes to the appropriate blueprint files in the `routes/` directory.
-
-## 🚫 What This Mock Doesn't Include
-
-- Real AI/ML processing
-- Authentication/Authorization (mocked)
-- Database persistence (in-memory only)
-- Real file storage
-- Production-grade error handling
-- Rate limiting or throttling
-
-## 🔄 Development Workflow
-
-1. **Start the server:** `python app.py`
-2. **Make changes** to code files
-3. **Restart server** to see changes (or use Flask's debug mode)
-4. **Test endpoints** using curl or Postman
-5. **Check console output** for event flow debugging
-
-## 📝 Notes
-
-- All data is stored in memory and resets when the server restarts
-- Base64 document content is simulated with sample text
-- Event timestamps and IDs are automatically generated
-- The mock follows the API patterns described in the ClaimLens integration documentation
-
-## 🤝 Contributing
-
-This is a mock/testing project. Feel free to:
-- Add more realistic sample data
-- Implement additional API endpoints
-- Enhance the AI analysis simulation
-- Add more comprehensive error handling
-
-## 📄 License
-
-This project is for testing and development purposes. Use according to your organization's policies.
+Created by [Mrutunjay Kinagi , Senior Software Engineer @ Doclens.ai](https://github.com/mrutunjay-kinagi)
+Inspired by ClaimLens vision at [doclens.ai](https://www.doclens.ai)
