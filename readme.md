@@ -71,7 +71,7 @@ Each prompt is routed by MCP to the appropriate mock services and composed back 
 
 | Service           | Description                            | Port |
 | ----------------- | -------------------------------------- | ---- |
-| `claimcenter-api` | Simulated Guidewire ClaimCenter APIs   | 5000 |
+| `claimcenter-api` | Simulated Guidewire ClaimCenter APIs   | 8080 |
 | `claimlens-api`   | Simulated AI engine for claim analysis | 5001 |
 | `mcp`             | Orchestration layer (MCP logic)        | 8002 |
 | `chat-ui`         | Streamlit frontend for agentic prompt  | 8501 |

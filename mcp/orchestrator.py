@@ -4,7 +4,7 @@ from planner import plan
 
 app = Flask(__name__)
 
-CLAIMCENTER_BASE = "http://claimcenter-api:5000"
+CLAIMCENTER_BASE = "http://claimcenter-api:8080"
 CLAIMLENS_BASE = "http://claimlens-api:5001"
 
 @app.route("/orchestrate", methods=["POST"])
