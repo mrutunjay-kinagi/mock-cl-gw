@@ -7,7 +7,7 @@ st.set_page_config(page_title="ClaimLens Agentic Chat", layout="centered")
 st.title("🤖 ClaimLens Agentic Chat")
 st.caption("Query your claims using agentic AI powered by MCP")
 
-prompt = st.text_input("Ask a question about the claim", placeholder="e.g. What are the endorsements on this policy?")
+prompt = st.text_input("Ask a question about the claim", placeholder="e.g. Fetch policy details for this claim")
 claim_id = st.text_input("Claim ID", value="claim_1")
 
 if st.button("Submit"):
@@ -31,11 +31,28 @@ if st.button("Submit"):
 
                     st.markdown("### 📊 Details")
                     for entry in result.get("results", []):
-                        st.subheader(entry.get("step"))
+                        st.markdown(f"### ✅ {entry.get('step')}")
+                        
                         if "data" in entry:
-                            st.json(entry["data"])
+                            data = entry["data"]
+
+                            if isinstance(data, dict):
+                                for k, v in data.items():
+                                    st.markdown(f"- **{k.replace('_', ' ').title()}**: {v}")
+                            elif isinstance(data, list):
+                                for i, item in enumerate(data, start=1):
+                                    st.markdown(f"**Item {i}:**")
+                                    if isinstance(item, dict):
+                                        for k, v in item.items():
+                                            st.markdown(f"- **{k.replace('_', ' ').title()}**: {v}")
+                                    else:
+                                        st.markdown(f"- {item}")
+                            else:
+                                st.markdown(f"**{data}**")
+
                         elif "message" in entry:
                             st.warning(entry["message"])
+
 
                 else:
                     st.error(f"Error: {response.status_code} - {response.text}")

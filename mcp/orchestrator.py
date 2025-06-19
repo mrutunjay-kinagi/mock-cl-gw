@@ -23,14 +23,14 @@ def orchestrate():
     try :
         for step in steps:
             action = step["action"]
-            policy_id = claim.get("policy_id")
-
+            
             if action == "get_claim":
                 claim_resp = requests.get(f"{CLAIMCENTER_BASE}/claims/{claim_id}")
                 claim = claim_resp.json()
                 outputs.append({"step": "Claim retrieved", "data": claim})
 
             elif action == "get_policy":
+                policy_id = claim.get("policy_id")
                 if policy_id:
                     policy_resp = requests.get(f"{CLAIMCENTER_BASE}/policies/{policy_id}")
                     policy = policy_resp.json()
@@ -57,10 +57,46 @@ def orchestrate():
             elif action == "get_injuries":
                 injury_resp = requests.get(f"{CLAIMCENTER_BASE}/claims/{claim_id}/injuries")
                 outputs.append({"step": "Injuries retrieved", "data": injury_resp.json()})
+            
+            elif action == "get_claim_loss_date":
+                outputs.append({
+                    "step": "Loss Date",
+                    "data": claim.get("loss_date", "Not found")
+                })
+
+            elif action == "get_accident_location":
+                outputs.append({
+                    "step": "Accident Location",
+                    "data": claim.get("accident_details", {}).get("location", {})
+                })
+
+            elif action == "get_accident_injuries":
+                outputs.append({
+                    "step": "Injury Details",
+                    "data": claim.get("accident_details", {}).get("injuries", [])
+                })
+
+            elif action == "get_policy_effective_date":
+                outputs.append({
+                    "step": "Policy Effective Date",
+                    "data": policy.get("effective_date", "Not found")
+                })
+
+            elif action == "get_policy_expiration_date":
+                outputs.append({
+                    "step": "Policy Expiration Date",
+                    "data": policy.get("expiration_date", "Not found")
+                })
+
+            elif action == "get_policy_premium":
+                outputs.append({
+                    "step": "Policy Premium",
+                    "data": f"${policy.get('premium', 0):,.2f}"
+                })
 
             elif action == "unsupported":
                 outputs.append({"step": "Unsupported prompt", "message": step["message"]})
-
+    
         return jsonify({
             "prompt": prompt,
             "claim_id": claim_id,

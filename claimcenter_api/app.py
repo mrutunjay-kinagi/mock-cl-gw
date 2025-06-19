@@ -14,6 +14,8 @@ claims = load_json("claims.json")
 policies = load_json("policies.json")
 documents = load_json("documents.json")
 injuries = load_json("injuries.json")
+endorsements = load_json("endorsements.json")
+coverages = load_json("coverages.json")
 
 @app.route("/claims/<claim_id>")
 def get_claim(claim_id):
@@ -33,12 +35,10 @@ def get_policy(policy_id):
 
 @app.route("/policies/<policy_id>/coverages")
 def get_coverages(policy_id):
-    coverages = load_json("coverages.json")
     return jsonify(coverages.get(policy_id, []))
 
 @app.route("/policies/<policy_id>/endorsements")
 def get_endorsements(policy_id):
-    endorsements = load_json("endorsements.json")
     return jsonify(endorsements.get(policy_id, []))
 
 if __name__ == "__main__":

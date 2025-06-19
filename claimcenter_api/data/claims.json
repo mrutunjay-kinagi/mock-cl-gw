@@ -6,7 +6,23 @@
     "loss_date": "2025-04-01",
     "status": "Open",
     "send_to_claim_lens": true,
-    "policy_id": "policy_auto_1"
+    "policy_id": "policy_auto_1",
+    "accident_details": {
+      "location": {
+        "street": "Main St & 1st Ave",
+        "city": "Springfield",
+        "state": "IL",
+        "zip_code": "62701"
+      },
+      "injuries": [
+        {
+          "name": "John Smith",
+          "type": "Whiplash",
+          "severity": "Moderate"
+        }
+      ],
+      "damage_estimate": 5000.00
+    }
   },
   "claim_2": {
     "claim_id": "claim_2",
@@ -15,6 +31,22 @@
     "loss_date": "2025-04-15",
     "status": "Open",
     "send_to_claim_lens": true,
-    "policy_id": "policy_gl_1"
+    "policy_id": "policy_gl_1",
+    "accident_details": {
+      "location": {
+        "street": "456 Commerce St",
+        "city": "Metropolis",
+        "state": "NY",
+        "zip_code": "10001"
+      },
+      "injuries": [
+        {
+          "name": "Jane Doe",
+          "type": "Ankle Sprain",
+          "severity": "Minor"
+        }
+      ],
+      "damage_estimate": 1500.00
+    }
   }
 }

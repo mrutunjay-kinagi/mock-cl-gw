@@ -3,12 +3,48 @@
     "policy_id": "policy_auto_1",
     "policy_number": "AUTO-2024-POL001",
     "lob": "Auto",
-    "policyholder_name": "John Smith"
+    "policyholder_name": "John Smith",
+    "vehicle_details": {
+      "make": "Toyota",
+      "model": "Camry",
+      "year": 2020,
+      "vin": "1HGBH41JXMN109186"
+    },
+    "address": {
+      "street": "123 Main St",
+      "city": "Springfield",
+      "state": "IL",
+      "zip_code": "62701"
+    },
+    "coverage_details": {
+      "liability_limit": 100000,
+      "collision_coverage": true,
+      "comprehensive_coverage": true
+    },
+    "premium": 1200.00,
+    "effective_date": "2024-01-01",
+    "expiration_date": "2025-01-01",
+    "status": "In-Force"
   },
   "policy_gl_1": {
     "policy_id": "policy_gl_1",
     "policy_number": "GL-2024-POL002",
     "lob": "General Liability",
-    "policyholder_name": "ABC Retail Inc."
+    "policyholder_name": "ABC Retail Inc.",
+    "address": {
+      "street": "456 Commerce St",
+      "city": "Metropolis",
+      "state": "NY",
+      "zip_code": "10001"
+    },
+    "coverage_details": {
+      "general_liability_limit": 2000000,
+      "premises_liability_coverage": true,
+      "products_coverage": true
+    },
+    "premium": 2500.00,
+    "effective_date": "2024-02-01",
+    "expiration_date": "2025-02-01",
+    "status": "In-Force"
   }
 }
