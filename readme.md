@@ -1,15 +1,15 @@
-# 🧠 ClaimLens + Guidewire ClaimCenter (Art of the Possible Demo using MCP)
+# ClaimLens + Guidewire ClaimCenter (Art of the Possible Demo using MCP)
 
 This mock project demonstrates a conceptual "Art of the Possible" integration between **Doclens.ai's ClaimLens** and **Guidewire ClaimCenter** using:
 
-* 🧠 Agentic AI Chat Interface (Streamlit)
-* 🔗 Model context orchestration layer (MCP)
-* 📡 Simulated ClaimCenter and ClaimLens REST APIs
-* 🐳 Fully Dockerized setup for easy local or cloud demo
+* Agentic AI Chat Interface (Streamlit)
+* Model context orchestration layer (MCP)
+* Simulated ClaimCenter and ClaimLens REST APIs
+* Fully Dockerized setup for easy local or cloud demo
 
 ---
 
-## 🔧 Project Modules
+## Project Modules
 
 ```
 mock-cl-gw/
@@ -23,7 +23,7 @@ mock-cl-gw/
 
 ---
 
-## 🧠 Agentic Chat Flow
+## Agentic Chat Flow
 
 1. User enters a goal into the chat UI (e.g., “Analyze claim C12345 and summarize documents”)
 2. MCP interprets the prompt and orchestrates:
@@ -34,28 +34,28 @@ mock-cl-gw/
 
 ---
 
-## 🚀 Running the Full Demo (Docker)
+## Running the Full Demo (Docker)
 
-### 🔁 1. Build All Services
+### 1. Build All Services
 
 ```bash
 docker-compose build
 ```
 
-### ▶️ 2. Launch All Services
+### 2. Launch All Services
 
 ```bash
 docker-compose up
 ```
 
-### 🌐 3. Open Agentic Chat UI
+### 3. Open Agentic Chat UI
 
 Visit: [http://localhost:8501](http://localhost:8501)
 Use: `claim_id = claim_1` or `claim_2`
 
 ---
 
-## 🧪 Sample Questions to Try
+## Sample Questions to Try
 
 * “Fetch policy details related to this claim”
 * “What are the coverages on this policy?”
@@ -67,7 +67,7 @@ Each prompt is routed by MCP to the appropriate mock services and composed back 
 
 ---
 
-## 📦 Service Overview
+## Service Overview
 
 | Service           | Description                            | Port |
 | ----------------- | -------------------------------------- | ---- |
@@ -78,7 +78,7 @@ Each prompt is routed by MCP to the appropriate mock services and composed back 
 
 ---
 
-## 🛠️ ClaimCenter Mock Data
+## ClaimCenter Mock Data
 
 The `claimcenter_api/data/` folder includes:
 
@@ -91,13 +91,11 @@ The `claimcenter_api/data/` folder includes:
 
 ---
 
-## 🛡️ Disclaimer
+## Disclaimer
 
 This is a **proof-of-concept** project. It simulates how ClaimLens could interact with Guidewire ClaimCenter using MCP and agentic AI. This is **not production-ready** and is intended solely to demonstrate the art of the possible.
 
 ---
 
-## 🧩 Credits
-
-Created by [Mrutunjay Kinagi , Senior Software Engineer @ Doclens.ai](https://github.com/mrutunjay-kinagi)
+## Credits
 Inspired by ClaimLens vision at [doclens.ai](https://www.doclens.ai)
