@@ -98,4 +98,4 @@ This is a **proof-of-concept** project. It simulates how ClaimLens could interac
 ---
 
 ## Credits
-Inspired by ClaimLens vision at [doclens.ai](https://www.doclens.ai)
+Inspired by ClaimLens vision at [Doclens.ai](https://www.doclens.ai)
