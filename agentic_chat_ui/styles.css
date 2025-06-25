@@ -1,0 +1,103 @@
+/* Sidebar styling */
+section[data-testid="stSidebar"] {
+  background: #22314a;
+  color: #fff;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+  min-width: 260px;
+}
+
+section[data-testid="stSidebar"] .stTextInput input,
+section[data-testid="stSidebar"] .stSelectbox,
+section[data-testid="stSidebar"] .stButton > button {
+  background: #2e3d5c;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+}
+
+section[data-testid="stSidebar"] .stButton > button {
+  background: #4B8BBE;
+  font-weight: bold;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+  background: #306998;
+}
+
+/* Main panel card style */
+.stApp {
+  background: #f0f2f6;
+}
+
+.stMarkdown, .stTextInput, .stCaption, .stSelectbox {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.stTextInput input, .stSelectbox, .stButton > button {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+
+.stButton > button {
+  background-color: #4B8BBE;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.stButton > button:hover {
+  background-color: #306998;
+}
+
+.stAlert {
+  border-radius: 8px;
+}
+
+.block-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(34,49,74,0.07);
+  padding: 2rem 2.5rem;
+  margin-top: 2rem;
+}
+
+/* Tab-like navigation (simulate with buttons or markdown) */
+.tab-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab-nav .tab {
+  background: #e6eaf3;
+  color: #22314a;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.tab-nav .tab.active, .tab-nav .tab:hover {
+  background: #4B8BBE;
+  color: #fff;
+}
+
+/* Headings and labels */
+h1, h2, h3, h4 {
+  color: #22314a;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.stCaption {
+  color: #4B8BBE;
+  font-size: 1.1rem;
+  font-weight: 500;
+}

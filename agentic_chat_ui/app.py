@@ -1,10 +1,14 @@
 import streamlit as st
 import requests
 
+with open("styles.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
 MCP_ENDPOINT = "http://mcp:8002/orchestrate"
 
 st.set_page_config(page_title="ClaimLens Agentic Chat", layout="centered")
-st.title("🤖 ClaimLens Agentic Chat")
+st.title("🤖 Claims Agentic Chat")
 st.caption("Query your claims using agentic AI powered by MCP")
 
 prompt = st.text_input("Ask a question about the claim", placeholder="e.g. Fetch policy details for this claim")
