@@ -1,15 +1,21 @@
 def plan(prompt: str, claim_id: str):
     prompt = prompt.lower()
     actions = []
+    
+    if "claim" in prompt or "claim details" in prompt or "claim info" in prompt or "claim detail" in prompt:
+        actions.append({"action": "get_claim"})
 
     if "policy details" in prompt or "policy info" in prompt:
         actions.append({"action": "get_claim"})
         actions.append({"action": "get_policy"})
 
-    elif "coverages" in prompt:
+    elif "coverages" in prompt or "coverage" in prompt or "policy coverages" in prompt or "coverage details" in prompt:
+        actions.append({"action": "get_claim"})
+        actions.append({"action": "get_policy"})
         actions.append({"action": "get_policy_coverages"})
 
-    elif "endorsements" in prompt:
+    elif "endorsements" in prompt or "policy endorsements" in prompt:
+        actions.append({"action": "get_claim"})
         actions.append({"action": "get_policy_endorsements"})
 
     elif "injuries" in prompt:
@@ -36,6 +42,11 @@ def plan(prompt: str, claim_id: str):
         actions.append({"action": "get_claim"})
         actions.append({"action": "get_policy"})
         actions.append({"action": "get_policy_expiration_date"})
+
+    elif "policy period" in prompt or "policy effective date" in prompt:
+        actions.append({"action": "get_claim"})
+        actions.append({"action": "get_policy"})
+        actions.append({"action": "get_policy_period"})
 
     elif "premium" in prompt:
         actions.append({"action": "get_claim"})

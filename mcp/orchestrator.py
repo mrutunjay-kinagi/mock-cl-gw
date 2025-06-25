@@ -88,6 +88,15 @@ def orchestrate():
                     "data": policy.get("expiration_date", "Not found")
                 })
 
+            elif action == "get_policy_period":
+                outputs.append({
+                    "step": "Policy Period",
+                    "data": {
+                        "start_date": policy.get("effective_date", "Not found"),
+                        "end_date": policy.get("expiration_date", "Not found")
+                    }
+                })
+                
             elif action == "get_policy_premium":
                 outputs.append({
                     "step": "Policy Premium",
