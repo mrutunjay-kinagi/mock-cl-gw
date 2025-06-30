@@ -24,7 +24,8 @@
     "premium": 1200.00,
     "effective_date": "2024-01-01",
     "expiration_date": "2025-01-01",
-    "status": "In-Force"
+    "status": "In-Force",
+    "claim_id": "claim_1"
   },
   "policy_gl_1": {
     "policy_id": "policy_gl_1",
@@ -45,6 +46,7 @@
     "premium": 2500.00,
     "effective_date": "2024-02-01",
     "expiration_date": "2025-02-01",
-    "status": "In-Force"
+    "status": "In-Force",
+    "claim_id": "claim_2"
   }
 }

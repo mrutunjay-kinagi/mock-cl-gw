@@ -1,59 +1,66 @@
 def plan(prompt: str, claim_id: str):
     prompt = prompt.lower()
-    actions = []
+    actions = set()
     
     if "claim" in prompt or "claim details" in prompt or "claim info" in prompt or "claim detail" in prompt:
-        actions.append({"action": "get_claim"})
+        actions.add("get_claim")
 
     if "policy details" in prompt or "policy info" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy"})
+        actions.add("get_claim")
+        actions.add("get_policy")
 
-    elif "coverages" in prompt or "coverage" in prompt or "policy coverages" in prompt or "coverage details" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy"})
-        actions.append({"action": "get_policy_coverages"})
+    if "coverages" in prompt or "coverage" in prompt or "policy coverages" in prompt or "coverage details" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_policy_coverages")
 
-    elif "endorsements" in prompt or "policy endorsements" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy_endorsements"})
+    if "endorsements" in prompt or "policy endorsements" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_policy_endorsements")
 
-    elif "injuries" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_accident_injuries"})
+    if "injuries" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_accident_injuries")
 
-    elif "documents" in prompt:
-        actions.append({"action": "get_documents"})
+    if "documents" in prompt:
+        actions.add("get_documents")
 
-    elif "date of loss" in prompt or "loss date" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_claim_loss_date"})
+    if "date of loss" in prompt or "loss date" in prompt:
+        actions.add("get_claim")
+        actions.add("get_claim_loss_date")
 
-    elif "accident occur" in prompt or "accident location" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_accident_location"})
+    if "accident occur" in prompt or "accident location" in prompt:
+        actions.add("get_claim")
+        actions.add("get_accident_location")
 
-    elif "effective date" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy"})
-        actions.append({"action": "get_policy_effective_date"})
+    if "effective date" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_policy_effective_date")
 
-    elif "expiration date" in prompt or "expiry date" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy"})
-        actions.append({"action": "get_policy_expiration_date"})
+    if "expiration date" in prompt or "expiry date" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_policy_expiration_date")
 
-    elif "policy period" in prompt or "policy effective date" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy"})
-        actions.append({"action": "get_policy_period"})
+    if "policy period" in prompt or "policy effective date" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_policy_period")
 
-    elif "premium" in prompt:
-        actions.append({"action": "get_claim"})
-        actions.append({"action": "get_policy"})
-        actions.append({"action": "get_policy_premium"})
+    if "premium" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_policy_premium")
 
-    else:
-        actions.append({"action": "unsupported", "message": "I don't understand that yet."})
+    if "vehicle" in prompt or "vehicle details" in prompt or "vehicle info" in prompt:
+        actions.add("get_claim")
+        actions.add("get_policy")
+        actions.add("get_vehicle_details")
 
-    return actions
+    if not actions:
+        actions.add("unsupported")
+
+    return [{"action": action} if action != "unsupported" else {"action": "unsupported", "message": "I don't understand that yet."} for action in actions]

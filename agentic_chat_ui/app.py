@@ -32,33 +32,79 @@ if st.button("Submit"):
                 )
                 if response.status_code == 200:
                     result = response.json()
-                    # Format AI response
+                    print(f"Response from MCP: {result}")
                     ai_message = ""
+
+                    # Format Actions Executed
                     if "steps_executed" in result:
                         ai_message += "### 🧠 Actions Executed\n"
                         for step in result.get("steps_executed", []):
                             ai_message += f"- {step}\n"
+
+                    # Format Results
                     if "results" in result:
                         ai_message += "\n### 📊 Details\n"
                         for entry in result.get("results", []):
-                            ai_message += f"**{entry.get('step', 'Step')}**\n"
+                            step_name = entry.get("step", "Step")
+                            ai_message += f"\n**{step_name}**\n"
+
                             if "data" in entry:
                                 data = entry["data"]
-                                if isinstance(data, dict):
-                                    for k, v in data.items():
-                                        ai_message += f"- **{k.replace('_', ' ').title()}**: {v}\n"
-                                elif isinstance(data, list):
-                                    for i, item in enumerate(data, start=1):
-                                        ai_message += f"**Item {i}:**\n"
-                                        if isinstance(item, dict):
-                                            for k, v in item.items():
-                                                ai_message += f"- **{k.replace('_', ' ').title()}**: {v}\n"
-                                        else:
-                                            ai_message += f"- {item}\n"
-                                else:
-                                    ai_message += f"**{data}**\n"
+
+                                # Dynamically format data based on step
+                                if step_name == "Claim retrieved":
+                                    ai_message += "\n**Claim Details:**\n"
+                                    ai_message += f"- **Claim ID:** {data.get('claim_id', 'N/A')}\n"
+                                    ai_message += f"- **Claim Number:** {data.get('claim_number', 'N/A')}\n"
+                                    ai_message += f"- **Description:** {data.get('description', 'N/A')}\n"
+                                    ai_message += f"- **Loss Date:** {data.get('loss_date', 'N/A')}\n"
+                                    ai_message += f"- **Status:** {data.get('status', 'N/A')}\n"
+                                    ai_message += f"- **Policy ID:** {data.get('policy_id', 'N/A')}\n"
+
+                                    # Format Accident Details
+                                    accident_details = data.get("accident_details", {})
+                                    if accident_details:
+                                        ai_message += "\n**Accident Details:**\n"
+                                        location = accident_details.get("location", {})
+                                        ai_message += f"- **Location:** {location.get('street', 'N/A')}, {location.get('city', 'N/A')}, {location.get('state', 'N/A')} {location.get('zip_code', 'N/A')}\n"
+                                        ai_message += f"- **Damage Estimate:** ${accident_details.get('damage_estimate', 'N/A')}\n"
+                                        injuries = accident_details.get("injuries", [])
+                                        if injuries:
+                                            ai_message += "\n**Injuries:**\n"
+                                            for injury in injuries:
+                                                ai_message += f"  - **Name:** {injury.get('name', 'N/A')}, **Type:** {injury.get('type', 'N/A')}, **Severity:** {injury.get('severity', 'N/A')}\n"
+
+                                elif step_name == "Policy details fetched":
+                                    ai_message += "\n**Policy Details:**\n"
+                                    ai_message += f"- **Policy ID:** {data.get('policy_id', 'N/A')}\n"
+                                    ai_message += f"- **Policy Number:** {data.get('policy_number', 'N/A')}\n"
+                                    ai_message += f"- **LOB:** {data.get('lob', 'N/A')}\n"
+                                    ai_message += f"- **Policyholder Name:** {data.get('policyholder_name', 'N/A')}\n"
+                                    ai_message += f"- **Status:** {data.get('status', 'N/A')}\n"
+
+                                elif step_name == "Policy coverages fetched":
+                                    ai_message += "\n**Coverages:**\n"
+                                    for coverage in data:
+                                        ai_message += f"- {coverage}\n"
+
+                                elif step_name == "Policy endorsements fetched":
+                                    ai_message += "\n**Endorsements:**\n"
+                                    for endorsement in data:
+                                        ai_message += f"- **Code:** {endorsement.get('code', 'N/A')}, **Title:** {endorsement.get('title', 'N/A')}\n"
+
+                                elif step_name == "Documents retrieved":
+                                    ai_message += "\n**Documents:**\n"
+                                    for document in data:
+                                        ai_message += f"- **Filename:** {document.get('filename', 'N/A')}, **Content Type:** {document.get('content_type', 'N/A')}\n"
+
+                                elif step_name == "Injuries retrieved":
+                                    ai_message += "\n**Injuries:**\n"
+                                    for injury in data:
+                                        ai_message += f"- **Description:** {injury.get('description', 'N/A')}, **Severity:** {injury.get('severity', 'N/A')}, **Body Parts:** {', '.join(injury.get('body_parts', []) or ['N/A'])}\n"
+
                             elif "message" in entry:
-                                ai_message += f":warning: {entry['message']}\n"
+                                ai_message += f"\n:warning: {entry['message']}\n"
+
                     st.session_state.chat_history.append({"role": "ai", "content": ai_message})
                 else:
                     st.session_state.chat_history.append({"role": "ai", "content": f":x: Error: {response.status_code} - {response.text}"})
